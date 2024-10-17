@@ -1,41 +1,65 @@
-Evaluación de Modelo de Clasificación con MLflow y FastAPI
-
-Este proyecto tiene como objetivo desarrollar un flujo completo para la evaluación de un modelo de clasificación utilizando MLflow, pycaret para gestionar el ciclo de vida del modelo y FastAPI para desplegar un servicio de predicción accesible. El flujo incluye la carga y procesamiento de los conjuntos de datos de entrenamiento y prueba, la creación de experimentos en MLflow, el almacenamiento de los modelos, y la integración de un servicio API para realizar predicciones basadas en el modelo entrenado.
+Evaluación de Modelo de Clasificación con PyCaret, MLflow y FastAPI
+Este proyecto se enfoca en la creación, evaluación y despliegue de un modelo de clasificación utilizando PyCaret, MLflow y FastAPI. Los datos provienen del desafío de Kaggle: Playground Series - Season 4, Episode 1. El objetivo es entrenar un modelo de clasificación para predecir los resultados a partir de los datos, gestionando los experimentos y versiones del modelo con MLflow, y desplegando un servicio de predicción con FastAPI.
 
 Componentes Clave del Proyecto
 Carga de Archivos de Entrenamiento y Prueba:
 
-Se cargan dos conjuntos de datos: el conjunto de entrenamiento y el de prueba, ambos necesarios para el desarrollo del modelo de clasificación.
-Estos archivos pueden ser cargados en la API mediante FastAPI en formato CSV o cualquier otro formato estructurado que permita el procesamiento en pandas.
+Los archivos train.csv y test.csv son los conjuntos de datos utilizados para el entrenamiento y la evaluación del modelo.
+Los datos se cargan en la API mediante FastAPI en formato CSV y se procesan en pandas para generar DataFrames que serán utilizados en el modelo de clasificación.
+Uso de PyCaret para Entrenamiento del Modelo:
 
-Entrenamiento del Modelo:
+PyCaret es una biblioteca de machine learning de bajo código que facilita la experimentación con varios modelos de clasificación.
+Durante el entrenamiento, PyCaret se encarga de:
+Preprocesamiento de los datos: PyCaret se encarga automáticamente de manejar datos faltantes, normalización, codificación categórica, etc.
+Comparación de Modelos: PyCaret permite comparar varios modelos de clasificación (e.g., Random Forest, SVM, XGBoost) de manera rápida y eficiente.
+Tuning de Hiperparámetros: PyCaret incluye una funcionalidad automática para ajustar los hiperparámetros del modelo elegido.
+Registro con MLflow: PyCaret se integra automáticamente con MLflow, lo que permite registrar los experimentos, métricas y modelos sin necesidad de configuración adicional.
+MLflow para la Gestión del Ciclo de Vida del Modelo:
 
-Los datos de entrenamiento se procesan para preparar el modelo de clasificación usando pycaret.
-El modelo puede ser cualquier algoritmo de clasificación (e.g., Random Forest, SVM, XGBoost).
-Durante el entrenamiento, se configuran experimentos en MLflow para:
-Registrar los parámetros del modelo.
-Guardar las métricas de rendimiento (precisión, F1-score, AUC, etc.).
-Almacenar el modelo entrenado.
-
-MLflow para Gestión del Ciclo de Vida del Modelo:
-
-Se utilizan experimentos en MLflow para monitorear el rendimiento de los modelos, realizar el seguimiento de los experimentos, y gestionar múltiples versiones del modelo.
-
-Los experimentos se registran automáticamente con MLflow, que almacena:
-    Parámetros del modelo (como hiperparámetros ajustados).
-    Métricas de rendimiento (como precisión, recall, etc.).
-    Artefactos como gráficos o informes generados durante la evaluación del modelo.
-    Modelos en producción, para su uso en la API.
-    Esto permite una fácil comparación entre experimentos y facilita la selección del mejor modelo para producción.
-
+MLflow gestiona los experimentos de PyCaret y permite:
+Registrar automáticamente los modelos y los parámetros probados en PyCaret.
+Guardar métricas de rendimiento como precisión, recall, F1-score, AUC, entre otras.
+Versionar los modelos entrenados para identificar fácilmente el mejor modelo.
+Comparar modelos en función de las métricas obtenidas en los experimentos.
+MLflow almacena los artefactos y permite una gestión clara de cada versión del modelo y de las pruebas realizadas.
 Despliegue del Modelo con FastAPI:
 
-Una vez que el modelo de clasificación es entrenado y registrado en MLflow, se implementa una API en FastAPI que sirve para realizar predicciones.
+Una vez que el modelo es entrenado y registrado en MLflow a través de PyCaret, se despliega en una API utilizando FastAPI.
+Endpoints principales:
+/upload: Para cargar los conjuntos de datos de entrenamiento y prueba.
+/train: Para entrenar el modelo utilizando PyCaret.
+/predict: Para realizar predicciones sobre nuevos datos utilizando el mejor modelo almacenado en producción.
+FastAPI toma los datos de entrada en formato JSON o CSV y realiza predicciones basadas en el modelo entrenado con PyCaret.
 
-Endpoints principales de la API:
-/upload: Para subir archivos de entrenamiento y prueba.
-/train: Para entrenar el modelo utilizando los datos de entrenamiento.
-/predict: Para realizar predicciones sobre nuevos datos utilizando el modelo en producción.
-FastAPI toma los datos de entrada (nuevas observaciones) en formato JSON o CSV y utiliza el modelo de clasificación previamente registrado en MLflow para devolver una predicción.
+Evaluación de Modelo de Clasificación con PyCaret, MLflow y FastAPI
+Este proyecto se enfoca en la creación, evaluación y despliegue de un modelo de clasificación utilizando PyCaret, MLflow y FastAPI. Los datos provienen del desafío de Kaggle: Playground Series - Season 4, Episode 1. El objetivo es entrenar un modelo de clasificación para predecir los resultados a partir de los datos, gestionando los experimentos y versiones del modelo con MLflow, y desplegando un servicio de predicción con FastAPI.
 
-Capturas de Pantalla:
+Componentes Clave del Proyecto
+Carga de Archivos de Entrenamiento y Prueba:
+
+Los archivos train.csv y test.csv son los conjuntos de datos utilizados para el entrenamiento y la evaluación del modelo.
+Los datos se cargan en la API mediante FastAPI en formato CSV y se procesan en pandas para generar DataFrames que serán utilizados en el modelo de clasificación.
+Uso de PyCaret para Entrenamiento del Modelo:
+
+PyCaret es una biblioteca de machine learning de bajo código que facilita la experimentación con varios modelos de clasificación.
+Durante el entrenamiento, PyCaret se encarga de:
+Preprocesamiento de los datos: PyCaret se encarga automáticamente de manejar datos faltantes, normalización, codificación categórica, etc.
+Comparación de Modelos: PyCaret permite comparar varios modelos de clasificación (e.g., Random Forest, SVM, XGBoost) de manera rápida y eficiente.
+Tuning de Hiperparámetros: PyCaret incluye una funcionalidad automática para ajustar los hiperparámetros del modelo elegido.
+Registro con MLflow: PyCaret se integra automáticamente con MLflow, lo que permite registrar los experimentos, métricas y modelos sin necesidad de configuración adicional.
+MLflow para la Gestión del Ciclo de Vida del Modelo:
+
+MLflow gestiona los experimentos de PyCaret y permite:
+Registrar automáticamente los modelos y los parámetros probados en PyCaret.
+Guardar métricas de rendimiento como precisión, recall, F1-score, AUC, entre otras.
+Versionar los modelos entrenados para identificar fácilmente el mejor modelo.
+Comparar modelos en función de las métricas obtenidas en los experimentos.
+MLflow almacena los artefactos y permite una gestión clara de cada versión del modelo y de las pruebas realizadas.
+Despliegue del Modelo con FastAPI:
+
+Una vez que el modelo es entrenado y registrado en MLflow a través de PyCaret, se despliega en una API utilizando FastAPI.
+Endpoints principales:
+/upload: Para cargar los conjuntos de datos de entrenamiento y prueba.
+/train: Para entrenar el modelo utilizando PyCaret.
+/predict: Para realizar predicciones sobre nuevos datos utilizando el mejor modelo almacenado en producción.
+FastAPI toma los datos de entrada en formato JSON o CSV y realiza predicciones basadas en el modelo entrenado con PyCaret.
