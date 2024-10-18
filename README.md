@@ -1,4 +1,4 @@
-🚀 Proyecto de Clasificación con PyCaret, MLflow y FastAPI
+🚀 Evaluacion de Clasificación con PyCaret, MLflow y FastAPI
 
 Este proyecto se centra en la creación, evaluación y despliegue de un modelo de clasificación utilizando PyCaret, MLflow y FastAPI. Los datos provienen del desafío de Kaggle: Playground Series - Season 4, Episode 1. El objetivo es entrenar un modelo para predecir resultados, gestionando versiones y experimentos con MLflow, y desplegar un servicio de predicción con FastAPI.
 
